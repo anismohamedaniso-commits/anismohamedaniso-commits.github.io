@@ -1430,7 +1430,7 @@
     <div class="portfolio-grid" id="portfolio-grid">
 
       <!-- Short Films -->
-      <article class="project-card reveal reveal-delay-1" data-category="short-film">
+      <article class="project-card reveal reveal-delay-1" data-category="short-film" data-href="https://drive.google.com/file/d/1beaDM5-nupR8uVcnEIQ3xu2ZIo71y-lv/view?usp=share_link">
         <div class="project-card-thumb">
           <img src="posters/SEVEN%20STAGES.png" alt="Seven Stages of Breakup" />
           <div class="project-card-overlay">
@@ -1441,7 +1441,7 @@
         </div>
       </article>
 
-      <article class="project-card reveal reveal-delay-2" data-category="short-film">
+      <article class="project-card reveal reveal-delay-2" data-category="short-film" data-href="https://drive.google.com/file/d/18v2e-OMqjzlFE9XMpVV3vvkktiDM4AmS/view">
         <div class="project-card-thumb">
           <img src="posters/the%20list.png" alt="The List" />
           <div class="project-card-overlay">
@@ -1453,7 +1453,7 @@
       </article>
 
       <!-- Media & Content -->
-      <article class="project-card reveal reveal-delay-3" data-category="media">
+      <article class="project-card reveal reveal-delay-3" data-category="media" data-href="https://drive.google.com/file/d/1V4t7y2fqRs9faVriTYTI0B6S6ISXrfR-/view?usp=sharing">
         <div class="project-card-thumb">
           <img src="posters/sleeping%20disorders.png" alt="Sleeping Disorders" />
           <div class="project-card-overlay">
@@ -1464,7 +1464,7 @@
         </div>
       </article>
 
-      <article class="project-card reveal reveal-delay-4" data-category="media">
+      <article class="project-card reveal reveal-delay-4" data-category="media" data-href="https://drive.google.com/drive/folders/1Bh224ofRaQj-m4XGH3rPvzXTgGr8DnZM?usp=share_link">
         <div class="project-card-thumb">
           <img src="posters/asphalt.png" alt="Asphalt's Hoodie Collection" />
           <div class="project-card-overlay">
@@ -1762,6 +1762,11 @@
     }, { threshold: 0.12 });
 
     revealItems.forEach(el => revealObserver.observe(el));
+
+    /* ---- Portfolio card links ---- */
+    document.querySelectorAll('.project-card[data-href]').forEach(card => {
+      card.addEventListener('click', () => window.open(card.dataset.href, '_blank'));
+    });
 
     /* ---- Portfolio filter ---- */
     const filterBtns   = document.querySelectorAll('.filter-btn');
