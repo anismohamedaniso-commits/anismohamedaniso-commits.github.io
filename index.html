@@ -125,51 +125,33 @@
     .loader-stack {
       display: grid;
       justify-items: center;
-      gap: 0.9rem;
+      gap: 1rem;
       text-align: center;
     }
 
-    .loader-shell {
-      width: clamp(140px, 20vw, 190px);
-      border: 1px solid rgba(241, 239, 233, 0.24);
-      border-radius: 14px;
-      display: grid;
-      place-items: center;
-      position: relative;
-      overflow: hidden;
-      padding: 1rem 0.9rem 1.1rem;
-      background: rgba(255, 255, 255, 0.028);
-      animation: loaderPulse 2.2s ease-in-out infinite;
-    }
-
-    .loader-shell::before {
-      content: "";
-      position: absolute;
-      left: 16%;
-      right: 16%;
-      bottom: 0.56rem;
-      height: 1px;
-      background: rgba(241, 239, 233, 0.22);
-    }
-
-    .loader-ring {
-      display: none;
-    }
-
     .loader-logo {
-      width: clamp(56px, 7vw, 72px);
+      width: clamp(70px, 10vw, 108px);
       height: auto;
-      filter: brightness(1.18) contrast(1.05);
+      filter: brightness(1.2) contrast(1.06);
       position: relative;
       z-index: 2;
     }
 
-    .loader-wordmark {
-      margin: 0;
-      font-size: 0.68rem;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      color: var(--text-dim);
+    .loader-line {
+      width: clamp(128px, 18vw, 196px);
+      height: 2px;
+      background: rgba(241, 239, 233, 0.2);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .loader-line::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      width: 56%;
+      background: linear-gradient(90deg, rgba(241, 239, 233, 0), rgba(241, 239, 233, 0.9), rgba(241, 239, 233, 0));
+      animation: loaderLine 1.2s ease-in-out infinite;
     }
 
     img {
@@ -1105,19 +1087,15 @@
       }
     }
 
-    @keyframes loaderSpin {
-      to {
-        transform: rotate(360deg);
+    @keyframes loaderLine {
+      0% {
+        transform: translateX(-115%);
       }
-    }
-
-    @keyframes loaderPulse {
-      0%,
+      55% {
+        transform: translateX(80%);
+      }
       100% {
-        box-shadow: 0 0 0 0 rgba(241, 239, 233, 0.08);
-      }
-      50% {
-        box-shadow: 0 0 0 16px rgba(241, 239, 233, 0);
+        transform: translateX(115%);
       }
     }
 
@@ -1226,11 +1204,8 @@
 <body>
   <div id="site-loader" role="status" aria-live="polite" aria-label="Loading Short Shift website">
     <div class="loader-stack">
-      <div class="loader-shell" aria-hidden="true">
-        <span class="loader-ring"></span>
-        <img class="loader-logo" src="shortshiftlogo.png" alt="" />
-      </div>
-      <p class="loader-wordmark">Short Shift</p>
+      <img class="loader-logo" src="shortshiftlogo.png" alt="" />
+      <div class="loader-line" aria-hidden="true"></div>
     </div>
   </div>
 
