@@ -172,18 +172,24 @@
     .cap-a { color: var(--bone-mute); justify-self: end; transition: color 0.5s var(--ease), transform 0.5s var(--ease); }
     .cap-row:hover .cap-a { color: var(--red); transform: translate(4px,-4px); }
 
-    /* Work — poster cards */
-    .posters { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.6rem; }
-    .poster { position: relative; aspect-ratio: 16 / 10; overflow: hidden; border: 1px solid var(--line); display: flex; flex-direction: column; justify-content: flex-end;
-      padding: clamp(1.6rem, 3vw, 2.6rem); transition: border-color 0.5s var(--ease), transform 0.5s var(--ease);
-      background: radial-gradient(120% 130% at 85% 0%, rgba(139,26,26,0.22), transparent 55%), linear-gradient(160deg, #131110, #0a0908); }
-    .poster:hover { border-color: var(--line-2); transform: translateY(-4px); }
-    .poster-no { position: absolute; top: clamp(1rem,2vw,1.8rem); right: clamp(1.2rem,2.5vw,2rem); font-family: "Anton", sans-serif; font-size: clamp(3rem, 7vw, 6rem); color: rgba(236,231,221,0.05); line-height: 1; }
-    .poster-cat { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--bone-dim); font-weight: 500; }
-    .poster-name { font-family: "Anton", sans-serif; text-transform: uppercase; font-size: clamp(1.7rem, 3.6vw, 3rem); color: var(--bone); line-height: 0.96; margin: 0.6rem 0 0.9rem; }
-    .poster-meta { display: flex; align-items: center; gap: 0.6rem; font-size: 0.74rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--bone-mute); }
-    .poster-meta .live { color: var(--red); display: inline-flex; align-items: center; gap: 0.45rem; }
-    .poster-meta .live::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--red); }
+    /* Work — film cards */
+    .films { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.6rem; }
+    .film { position: relative; aspect-ratio: 16 / 10; overflow: hidden; border: 1px solid var(--line); display: flex; flex-direction: column; justify-content: flex-end;
+      padding: clamp(1.6rem, 3vw, 2.6rem); transition: border-color 0.5s var(--ease), transform 0.5s var(--ease); cursor: pointer; }
+    .film:hover { border-color: rgba(236,231,221,0.28); transform: translateY(-5px); }
+    .film-img { position: absolute; inset: 0; z-index: 0; }
+    .film-img img { width: 100%; height: 100%; object-fit: cover; object-position: center; filter: grayscale(0.18) brightness(0.72); transition: transform 0.8s var(--ease), filter 0.8s var(--ease); }
+    .film:hover .film-img img { transform: scale(1.04); filter: grayscale(0) brightness(0.78); }
+    .film-overlay { position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(to top, rgba(5,4,3,0.92) 0%, rgba(5,4,3,0.4) 50%, rgba(5,4,3,0.12) 100%); }
+    .film-body { position: relative; z-index: 2; }
+    .film-cat { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--bone-dim); font-weight: 500; }
+    .film-name { font-family: "Anton", sans-serif; text-transform: uppercase; font-size: clamp(1.7rem, 3.6vw, 3rem); color: var(--bone); line-height: 0.96; margin: 0.55rem 0 0.9rem; }
+    .film-meta { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    .film-meta span { font-size: 0.74rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--bone-mute); }
+    .film-watch { font-size: 0.74rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; color: var(--bone-dim); display: inline-flex; align-items: center; gap: 0.5rem; transition: color 0.4s var(--ease); }
+    .film:hover .film-watch { color: var(--bone); }
+    .film-no { position: absolute; top: clamp(1rem,2vw,1.8rem); right: clamp(1.2rem,2.5vw,2rem); z-index: 2; font-family: "Anton", sans-serif; font-size: clamp(3rem, 7vw, 6rem); color: rgba(236,231,221,0.06); line-height: 1; }
 
     /* Standards */
     .std-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
@@ -230,7 +236,7 @@
     /* Responsive */
     @media (max-width: 1000px) {
       .studio-grid { grid-template-columns: 1fr; gap: 2.6rem; }
-      .posters { grid-template-columns: 1fr; }
+      .films { grid-template-columns: 1fr; }
       .std-grid { grid-template-columns: repeat(2, 1fr); }
       .contact-grid { grid-template-columns: 1fr; }
       .cap-row { grid-template-columns: 48px 1fr; grid-template-areas: "i n" ". d"; gap: 0.7rem 1.2rem; }
@@ -345,32 +351,51 @@
     <!-- WORK -->
     <section class="sec" id="work" aria-label="Selected work">
       <div class="wrap">
-        <span class="eyebrow sec-eyebrow rv"><span class="n">03</span> The Slate</span>
-        <div class="posters rv">
-          <article class="poster">
-            <span class="poster-no">01</span>
-            <span class="poster-cat">Narrative Film</span>
-            <h3 class="poster-name">Untitled No. 01</h3>
-            <div class="poster-meta"><span class="live">In Production</span></div>
+        <span class="eyebrow sec-eyebrow rv"><span class="n">03</span> Selected Work</span>
+        <div class="films rv">
+
+          <article class="film" onclick="window.open('https://drive.google.com/file/d/1beaDM5-nupR8uVcnEIQ3xu2ZIo71y-lv/view','_blank','noopener')" role="link" tabindex="0" aria-label="Seven Stages of Breakup — watch film">
+            <span class="film-no">01</span>
+            <div class="film-img"><img src="posters/SEVEN%20STAGES.png" alt="Seven Stages of Breakup" loading="lazy" /></div>
+            <div class="film-overlay"></div>
+            <div class="film-body">
+              <span class="film-cat">Short Film</span>
+              <h3 class="film-name">Seven Stages of Breakup</h3>
+              <div class="film-meta">
+                <span>2024</span>
+                <span class="film-watch">Watch Film ↗</span>
+              </div>
+            </div>
           </article>
-          <article class="poster">
-            <span class="poster-no">02</span>
-            <span class="poster-cat">Commercial</span>
-            <h3 class="poster-name">Untitled No. 02</h3>
-            <div class="poster-meta"><span>Coming Soon</span></div>
+
+          <article class="film" onclick="window.open('https://drive.google.com/file/d/18v2e-OMqjzlFE9XMpVV3vvkktiDM4AmS/view','_blank','noopener')" role="link" tabindex="0" aria-label="The List — watch film">
+            <span class="film-no">02</span>
+            <div class="film-img"><img src="posters/the%20list.png" alt="The List" loading="lazy" /></div>
+            <div class="film-overlay"></div>
+            <div class="film-body">
+              <span class="film-cat">Short Film</span>
+              <h3 class="film-name">The List</h3>
+              <div class="film-meta">
+                <span>2024</span>
+                <span class="film-watch">Watch Film ↗</span>
+              </div>
+            </div>
           </article>
-          <article class="poster">
-            <span class="poster-no">03</span>
-            <span class="poster-cat">Music Video</span>
-            <h3 class="poster-name">Untitled No. 03</h3>
-            <div class="poster-meta"><span>Coming Soon</span></div>
+
+          <article class="film" onclick="window.open('https://drive.google.com/file/d/1V4t7y2fqRs9faVriTYTI0B6S6ISXrfR-/view','_blank','noopener')" role="link" tabindex="0" aria-label="Sleeping Disorders — watch film">
+            <span class="film-no">03</span>
+            <div class="film-img"><img src="posters/sleeping%20disorders.png" alt="Sleeping Disorders" loading="lazy" /></div>
+            <div class="film-overlay"></div>
+            <div class="film-body">
+              <span class="film-cat">Brand Film</span>
+              <h3 class="film-name">Sleeping Disorders</h3>
+              <div class="film-meta">
+                <span>2024</span>
+                <span class="film-watch">Watch Film ↗</span>
+              </div>
+            </div>
           </article>
-          <article class="poster">
-            <span class="poster-no">04</span>
-            <span class="poster-cat">Documentary</span>
-            <h3 class="poster-name">Untitled No. 04</h3>
-            <div class="poster-meta"><span>Coming Soon</span></div>
-          </article>
+
         </div>
       </div>
     </section>
@@ -458,6 +483,10 @@
       burger.addEventListener("click", () => { const o = nav.classList.toggle("open"); burger.classList.toggle("open", o); burger.setAttribute("aria-expanded", String(o)); });
       nav.querySelectorAll("a").forEach(a => a.addEventListener("click", closeNav));
       addEventListener("resize", () => { if (innerWidth > 720) closeNav(); });
+
+      document.querySelectorAll(".film[role='link']").forEach(el => {
+        el.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); el.click(); } });
+      });
 
       const io = new IntersectionObserver((es, o) => { es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); o.unobserve(e.target); } }); }, { threshold: 0.12, rootMargin: "0px 0px -7% 0px" });
       document.querySelectorAll(".rv").forEach(el => io.observe(el));
